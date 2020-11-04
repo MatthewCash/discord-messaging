@@ -5,10 +5,12 @@ import java.io.StringReader;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+import javax.json.JsonValue;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.plugin.PluginLogger;
 
 public class DiscordMessage {
     String tag;
@@ -17,13 +19,14 @@ public class DiscordMessage {
     String primaryRole;
 
     public DiscordMessage(JsonObject jsonMessage) {
-        this.tag = jsonMessage.getString("tag");
-        this.nickname = jsonMessage.getString("nickname");
-        this.content = jsonMessage.getString("content");
-        this.primaryRole = jsonMessage.getString("primaryRole");
+        this.tag = jsonMessage.getString("tag").toString();
+        this.nickname = jsonMessage.get("nickname") == JsonValue.NULL ? "" : jsonMessage.getString("nickname");
+        this.content = jsonMessage.getString("content").toString();
+        this.primaryRole = jsonMessage.getString("primaryRole").toString();
     }
 
     public static JsonObject getJSON(String rawJson) {
+        PluginLogger.getLogger("test").info(rawJson);
         JsonReader jsonReader = Json.createReader(new StringReader(rawJson));
         JsonObject jsonMessage = jsonReader.readObject();
         return jsonMessage;
