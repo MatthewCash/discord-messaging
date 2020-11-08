@@ -10,7 +10,6 @@ import javax.json.JsonValue;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.plugin.PluginLogger;
 
 public class DiscordMessage {
     String tag;
@@ -26,7 +25,6 @@ public class DiscordMessage {
     }
 
     public static JsonObject getJSON(String rawJson) {
-        PluginLogger.getLogger("test").info(rawJson);
         JsonReader jsonReader = Json.createReader(new StringReader(rawJson));
         JsonObject jsonMessage = jsonReader.readObject();
         return jsonMessage;

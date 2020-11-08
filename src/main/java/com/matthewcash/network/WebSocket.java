@@ -39,14 +39,6 @@ public class WebSocket extends WebSocketClient {
         PluginLogger.getLogger("DiscordMessaging")
                 .warning("WebSocket has closed: " + String.valueOf(code) + " " + reason);
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            PluginLogger.getLogger("DiscordMessaging").warning("WebSocket reconnect timer was interrupted!");
-            return;
-        }
-
-        PluginLogger.getLogger("DiscordMessaging").info("WebSocket Reconnecting");
         synchronized (this) {
             this.notify();
         }
@@ -54,6 +46,12 @@ public class WebSocket extends WebSocketClient {
 
     @Override
     public void onError(Exception e) {
+        if (!this.isOpen()) {
+            PluginLogger.getLogger("DiscordMessaging")
+                    .severe("WebSocket client encountered an error while reconnecting!");
+            this.close();
+            return;
+        }
         PluginLogger.getLogger("DiscordMessaging").severe("WebSocket client encountered an error!");
         e.printStackTrace();
 

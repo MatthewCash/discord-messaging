@@ -29,9 +29,13 @@ public class DiscordMessaging extends Plugin {
                         while (true) {
                             try {
                                 websocket.wait();
-                                websocket.reconnectBlocking();
+
+                                Thread.sleep(5000);
+
+                                getLogger().info("WebSocket Reconnecting");
+                                websocket.reconnect();
                             } catch (InterruptedException e) {
-                                // Ignore Interrupted Exception
+                                getLogger().warning("WebSocket reconnect timer was interrupted!");
                             }
                         }
                     }
