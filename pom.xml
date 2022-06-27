@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.matthewcash.network</groupId>
     <artifactId>DiscordMessaging</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
     <name>Matthew_Cash Discord Messaging</name>
     <build>
         <plugins>
@@ -11,8 +11,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.7.0</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>1.17</source>
+                    <target>1.17</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -36,15 +36,15 @@
     </build>
     <repositories>
         <repository>
-            <id>bungeecord-repo</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <id>papermc</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
     </repositories>
     <dependencies>
         <dependency>
-            <groupId>net.md-5</groupId>
-            <artifactId>bungeecord-api</artifactId>
-            <version>1.16-R0.2-SNAPSHOT</version>
+            <groupId>com.velocitypowered</groupId>
+            <artifactId>velocity-api</artifactId>
+            <version>3.0.1</version>
             <type>jar</type>
             <scope>provided</scope>
         </dependency>
@@ -57,6 +57,11 @@
             <groupId>org.java-websocket</groupId>
             <artifactId>Java-WebSocket</artifactId>
             <version>1.5.1</version>
+        </dependency>
+         <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-text-minimessage</artifactId>
+            <version>4.11.0</version>
         </dependency>
     </dependencies>
 </project>

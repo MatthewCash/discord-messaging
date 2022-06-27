@@ -4,7 +4,7 @@
   <groupId>com.matthewcash.network</groupId>
   <artifactId>DiscordMessaging</artifactId>
   <name>Matthew_Cash Discord Messaging</name>
-  <version>1.0.0</version>
+  <version>2.0.0</version>
   <build>
     <plugins>
       <plugin>
@@ -35,44 +35,60 @@
   </build>
   <repositories>
     <repository>
-      <id>bungeecord-repo</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      <id>papermc</id>
+      <url>https://repo.papermc.io/repository/maven-public/</url>
     </repository>
   </repositories>
   <dependencies>
     <dependency>
-      <groupId>net.md-5</groupId>
-      <artifactId>bungeecord-api</artifactId>
-      <version>1.16-R0.2-SNAPSHOT</version>
+      <groupId>com.velocitypowered</groupId>
+      <artifactId>velocity-api</artifactId>
+      <version>3.0.1</version>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
-          <artifactId>bungeecord-chat</artifactId>
-          <groupId>net.md-5</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>bungeecord-config</artifactId>
-          <groupId>net.md-5</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>bungeecord-event</artifactId>
-          <groupId>net.md-5</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>bungeecord-protocol</artifactId>
-          <groupId>net.md-5</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>netty-transport-native-unix-common</artifactId>
-          <groupId>io.netty</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>snakeyaml</artifactId>
-          <groupId>org.yaml</groupId>
+          <artifactId>gson</artifactId>
+          <groupId>com.google.code.gson</groupId>
         </exclusion>
         <exclusion>
           <artifactId>guava</artifactId>
           <groupId>com.google.guava</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>toml4j</artifactId>
+          <groupId>com.moandjiezana.toml</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>adventure-text-serializer-gson</artifactId>
+          <groupId>net.kyori</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>adventure-text-serializer-legacy</artifactId>
+          <groupId>net.kyori</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>adventure-text-serializer-plain</artifactId>
+          <groupId>net.kyori</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>guice</artifactId>
+          <groupId>com.google.inject</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>velocity-brigadier</artifactId>
+          <groupId>com.velocitypowered</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>configurate-hocon</artifactId>
+          <groupId>org.spongepowered</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>configurate-yaml</artifactId>
+          <groupId>org.spongepowered</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>configurate-gson</artifactId>
+          <groupId>org.spongepowered</groupId>
         </exclusion>
       </exclusions>
     </dependency>

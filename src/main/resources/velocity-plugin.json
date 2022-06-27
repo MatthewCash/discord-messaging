@@ -1,0 +1,12 @@
+{
+    "id": "discord-messaging",
+    "name": "DiscordMessaging",
+    "version": "2.0.0",
+    "description": "Discord Messaging Plugin for Velocity",
+    "url": "https://github.com/MatthewCash/discord-messaging",
+    "authors": [
+        "Matthew_Cash"
+    ],
+    "dependencies": [],
+    "main": "com.matthewcash.network.DiscordMessaging"
+}

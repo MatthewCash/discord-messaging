@@ -6,38 +6,30 @@ import java.util.UUID;
 import javax.json.Json;
 import javax.json.JsonObjectBuilder;
 
-import net.md_5.bungee.api.connection.ProxiedPlayer;
-import net.md_5.bungee.api.plugin.Listener;
-import net.md_5.bungee.api.event.ChatEvent;
-import net.md_5.bungee.api.plugin.PluginLogger;
-import net.md_5.bungee.event.EventHandler;
+import com.velocitypowered.api.event.Subscribe;
+import com.velocitypowered.api.event.player.PlayerChatEvent;
+import com.velocitypowered.api.proxy.Player;
 
-public class ChatEvents implements Listener {
+public class ChatEvents {
 
-    @EventHandler
-    public void onPlayerChat(ChatEvent event) {
-        if (event.isCommand()) {
-            return;
-        }
-
-        ProxiedPlayer player = (ProxiedPlayer) event.getSender();
+    @Subscribe
+    public void onPlayerChat(PlayerChatEvent event) {
+        Player player = event.getPlayer();
 
         String message = event.getMessage();
         UUID uuid = player.getUniqueId();
-        String username = player.getName();
+        String username = player.getUsername();
 
-        DiscordMessaging.getPlugin().getProxy().getScheduler().runAsync(DiscordMessaging.getPlugin(), new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    sendDiscordMessage(message, uuid, username);
-                } catch (IOException e) {
-                    PluginLogger.getLogger("DiscordMessaging")
-                            .severe("An error occurred while sending the WebHook request!");
-                    e.printStackTrace();
-                }
-            }
-        });
+        DiscordMessaging.server.getScheduler()
+                .buildTask(DiscordMessaging.plugin, () -> {
+                    try {
+                        sendDiscordMessage(message, uuid, username);
+                    } catch (IOException e) {
+                        DiscordMessaging.logger.error("An error occurred while sending the WebHook request!");
+                        e.printStackTrace();
+                    }
+                })
+                .schedule();
     }
 
     private static void sendDiscordMessage(String message, UUID uuid, String username) throws IOException {

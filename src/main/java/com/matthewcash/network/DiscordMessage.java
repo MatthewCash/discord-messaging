@@ -7,9 +7,9 @@ import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.JsonValue;
 
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 
 public class DiscordMessage {
     String tag;
@@ -31,9 +31,11 @@ public class DiscordMessage {
     }
 
     public void sendToChat() {
-        BaseComponent[] message = new ComponentBuilder("Discord ").color(ChatColor.DARK_BLUE).append(tag)
-                .color(ChatColor.GRAY).append(" ").append(content).color(ChatColor.WHITE).create();
+        Component message = MiniMessage.miniMessage()
+                .deserialize(
+                        "<dark_blue>Discord</dark_blue> <gray><tag></gray> <content>", Placeholder.unparsed("tag", tag),
+                        Placeholder.unparsed("content", content));
 
-        DiscordMessaging.getPlugin().getProxy().broadcast(message);
+        DiscordMessaging.server.sendMessage(message);
     }
 }

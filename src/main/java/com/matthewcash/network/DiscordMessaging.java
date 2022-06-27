@@ -3,54 +3,58 @@ package com.matthewcash.network;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import net.md_5.bungee.api.plugin.Plugin;
+import com.google.inject.Inject;
+import com.velocitypowered.api.event.Subscribe;
+import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
+import com.velocitypowered.api.proxy.ProxyServer;
 
-public class DiscordMessaging extends Plugin {
-    private static DiscordMessaging plugin;
+import org.slf4j.Logger;
+
+public class DiscordMessaging {
     private WebSocket websocket;
 
-    public static DiscordMessaging getPlugin() {
-        return plugin;
+    public static ProxyServer server;
+    public static Logger logger;
+    public static DiscordMessaging plugin;
+
+    @Inject
+    public DiscordMessaging(ProxyServer server, Logger logger) {
+        DiscordMessaging.server = server;
+        DiscordMessaging.logger = logger;
     }
 
-    @Override
-    public void onEnable() {
-        plugin = this;
+    @Subscribe
+    public void onProxyInitialization(ProxyInitializeEvent event) {
+        DiscordMessaging.plugin = this;
 
-        getProxy().getPluginManager().registerListener(this, new ChatEvents());
+        server.getEventManager().register(this, new ChatEvents());
 
-        getProxy().getScheduler().runAsync(DiscordMessaging.getPlugin(), new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    websocket = new WebSocket(new URI("ws://172.18.0.1:8763"));
-                    synchronized (websocket) {
-                        websocket.connect();
-                        while (true) {
-                            try {
-                                websocket.wait();
+        server.getScheduler()
+                .buildTask(this, () -> {
+                    try {
+                        websocket = new WebSocket(new URI("ws://172.18.0.1:8763"));
+                        synchronized (websocket) {
+                            websocket.connect();
+                            while (true) {
+                                try {
+                                    websocket.wait();
 
-                                Thread.sleep(5000);
+                                    Thread.sleep(5000);
 
-                                getLogger().info("WebSocket Reconnecting");
-                                websocket.reconnect();
-                            } catch (InterruptedException e) {
-                                // Ignore Interruption
+                                    logger.info("WebSocket Reconnecting");
+                                    websocket.reconnect();
+                                } catch (InterruptedException e) {
+                                    // Ignore Interruption
+                                }
                             }
                         }
+
+                    } catch (URISyntaxException e) {
+                        e.printStackTrace();
                     }
+                })
+                .schedule();
 
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        getLogger().info("Enabled DiscordMessaging!");
-    }
-
-    @Override
-    public void onDisable() {
-        getLogger().info("Disabled DiscordMessaging!");
+        logger.info("Enabled DiscordMessaging!");
     }
 }
