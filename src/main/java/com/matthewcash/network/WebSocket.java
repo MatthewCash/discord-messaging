@@ -34,11 +34,8 @@ public class WebSocket extends WebSocketClient {
 
     @Override
     public void onClose(int code, String reason, boolean remote) {
-        DiscordMessaging.logger.warn("WebSocket has closed: " + String.valueOf(code) + " " + reason);
-
-        synchronized (this) {
-            this.notify();
-        }
+        DiscordMessaging.logger
+            .warn("WebSocket has closed: " + String.valueOf(code) + " " + reason);
     }
 
     @Override
