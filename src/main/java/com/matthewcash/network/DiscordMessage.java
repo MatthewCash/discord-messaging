@@ -32,9 +32,10 @@ public class DiscordMessage {
 
     public void sendToChat() {
         Component message = MiniMessage.miniMessage()
-                .deserialize(
-                        "<dark_blue>Discord</dark_blue> <gray><tag></gray> <content>", Placeholder.unparsed("tag", tag),
-                        Placeholder.unparsed("content", content));
+            .deserialize(
+                "<dark_blue>Discord</dark_blue> <gray><tag></gray> <content>",
+                Placeholder.unparsed("tag", tag),
+                Placeholder.unparsed("content", content));
 
         DiscordMessaging.server.sendMessage(message);
     }

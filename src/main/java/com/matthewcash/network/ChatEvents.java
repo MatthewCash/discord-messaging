@@ -21,19 +21,20 @@ public class ChatEvents {
         String username = player.getUsername();
 
         DiscordMessaging.server.getScheduler()
-                .buildTask(DiscordMessaging.plugin, () -> {
-                    try {
-                        sendDiscordMessage(message, uuid, username);
-                    } catch (IOException e) {
-                        DiscordMessaging.logger.error("An error occurred while sending the WebHook request!");
-                        e.printStackTrace();
-                    }
-                })
-                .schedule();
+            .buildTask(DiscordMessaging.plugin, () -> {
+                try {
+                    sendDiscordMessage(message, uuid, username);
+                } catch (IOException e) {
+                    DiscordMessaging.logger
+                        .error("An error occurred while sending the WebHook request!");
+                    e.printStackTrace();
+                }
+            })
+            .schedule();
     }
 
-    private static void sendDiscordMessage(String message, UUID uuid, String username) throws IOException {
-
+    private static void sendDiscordMessage(String message, UUID uuid, String username)
+        throws IOException {
         JsonObjectBuilder payloadJsonBuilder = Json.createObjectBuilder();
 
         payloadJsonBuilder.add("content", message);
