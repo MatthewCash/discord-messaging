@@ -1,7 +1,8 @@
 # Data directories
 .gradle/
-.jdtls_data/
+.jdtls/
+.direnv
 
 # Build Outputs
 build/
-bin/
+bin
