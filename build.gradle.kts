@@ -13,6 +13,7 @@ dependencies {
     implementation("com.velocitypowered:velocity-api:3.0.1")
     annotationProcessor("com.velocitypowered:velocity-api:3.0.1")
     implementation("net.kyori:adventure-text-minimessage:4.11.0")
+    implementation("com.electronwill.night-config:toml:3.6.0")
     implementation("org.java-websocket:Java-WebSocket:1.5.3")
     implementation("javax.json:javax.json-api:1.1")
 }
