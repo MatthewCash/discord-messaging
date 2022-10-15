@@ -46,11 +46,21 @@ public class DiscordMessaging {
 
         server.getScheduler()
             .buildTask(plugin, () -> {
-                if (websocket.getReadyState() != ReadyState.OPEN) {
-                    websocket.reconnect();
+                while (true) {
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        return;
+                    }
+
+                    synchronized (websocket) {
+                        if (websocket.getReadyState() != ReadyState.OPEN) {
+                            logger.info("Reconnecting to WebSocket...");
+                            websocket.reconnect();
+                        }
+                    }
                 }
             })
-            .repeat(5L, TimeUnit.SECONDS)
             .schedule();
 
         logger.info("Enabled DiscordMessaging!");
